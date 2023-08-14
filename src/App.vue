@@ -1,16 +1,39 @@
 <template>
   <div id="app">
-    <header-app></header-app>
+    <header-app/>
+    <paginator :slideIndex="slideIndex" :maxSlideIndex="maxSlideIndex"/>
+    <slide :slideData="slideData"/>
     <router-view/>
   </div>
 </template>
 
 <script>
 import HeaderApp from '@/components/HeaderApp';
+import paginator from '@/components/Paginator';
+import slide from '@/components/Slide';
 
 export default {
   components:{
-    'header-app' : HeaderApp
+    'header-app' : HeaderApp,
+    paginator,
+    slide
+  },
+  data(){
+    return{
+
+    }
+  },
+  computed: {
+    slideIndex(){
+      return this.$store.getters.getSlideIndex;
+    },
+    maxSlideIndex(){
+      return this.$store.getters.getMaxSlideIndex;
+    },
+    slideData(){
+      const slides = this.$store.getters['slides/getSlides'];
+      return slides[this.slideIndex];
+    }
   }
 }
 </script>

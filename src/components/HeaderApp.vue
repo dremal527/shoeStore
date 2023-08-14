@@ -8,7 +8,7 @@
       <router-link to="/accessories">ACCESSORIES</router-link>
       <router-link to="/sales">SALES</router-link>
     </nav>
-    <img src="@/assets/cart.svg" alt="">
+    <font-awesome-icon :icon="['fas', 'cart-shopping']" />
   </header>
 </template>
 
