@@ -25,10 +25,10 @@ export default {
   },
   computed: {
     slideIndex(){
-      return this.$store.getters.getSlideIndex;
+      return this.$store.getters['slides/getSlideIndex'];
     },
     maxSlideIndex(){
-      return this.$store.getters.getMaxSlideIndex;
+      return this.$store.getters['slides/getMaxSlideIndex'];
     },
     slideData(){
       const slides = this.$store.getters['slides/getSlides'];

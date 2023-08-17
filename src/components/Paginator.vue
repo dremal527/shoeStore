@@ -1,17 +1,18 @@
 <template>
     <div class="paginator">
-        <template v-if="slideIndex > 1">
-            <button @click="previousSlide()" class="paginator-btn previous"><font-awesome-icon :icon="['fas', 'arrow-left-long']" /></button>
-        </template>
-        <template v-if="slideIndex != maxSlideIndex">
-            <button @click="nextSlide()" class="paginator-btn next">Next Style <font-awesome-icon :icon="['fas', 'arrow-right-long']" /></button>
-        </template>
+        <button @click="previousSlide()" :class="((slideIndex > 0) ? '' : 'invisible')" :disabled="slideIndex < 0" class="paginator-btn previous"><font-awesome-icon :icon="['fas', 'arrow-left-long']" /></button>
+        <button @click="nextSlide()" :class="((slideIndex != maxSlideIndex) ? '' : 'invisible')" :disabled="slideIndex == maxSlideIndex" class="paginator-btn next">Next Style <font-awesome-icon :icon="['fas', 'arrow-right-long']" /></button>
     </div>
 </template>
 
 <script>
 export default{
     name: 'Paginator',
+    data(){
+        return{
+            slideAnimationTime: 300
+        }
+    },
     props: {
         slideIndex: {
             type: Number,
@@ -23,13 +24,23 @@ export default{
         }
     },
     methods: {
+        setAnimations(){
+            document.querySelector('.slide').classList.add('next')
+        },
         previousSlide(){
-            this.$store.commit('setSlideIndex', this.slideIndex - 1);
+            this.setAnimations();
+            setTimeout(() => {
+                this.$store.commit('slides/setSlideIndex', this.slideIndex - 1);
+            }, this.slideAnimationTime);
         },
         nextSlide(){
-            this.$store.commit('setSlideIndex', this.slideIndex + 1);
+            this.setAnimations();
+            setTimeout(() => {
+                this.$store.commit('slides/setSlideIndex', this.slideIndex + 1);
+            }, this.slideAnimationTime);
         }
-    }
+    },
+    computed: {}
 }
 </script>
 
@@ -61,6 +72,18 @@ export default{
 
             &.next:hover{
                 padding: 10px 41px;
+            }
+
+            &.invisible{
+                opacity: 0;
+                cursor: auto;
+
+                &.next:hover{
+                    padding: 10px 40px;
+                }
+                &.previous:hover{
+                    padding: 10px 40px;
+                }
             }
         }
     }
