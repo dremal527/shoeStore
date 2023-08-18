@@ -1,9 +1,8 @@
 <template>
   <div id="app">
-    <header-app/>
+    <header-app :activeBlock="activeBlock"/>
     <paginator :slideIndex="slideIndex" :maxSlideIndex="maxSlideIndex"/>
     <slide :slideData="slideData"/>
-    <router-view/>
   </div>
 </template>
 
@@ -20,20 +19,23 @@ export default {
   },
   data(){
     return{
-
+      maxSlideIndex: 0
     }
   },
   computed: {
-    slideIndex(){
-      return this.$store.getters['slides/getSlideIndex'];
-    },
-    maxSlideIndex(){
-      return this.$store.getters['slides/getMaxSlideIndex'];
+    activeBlock(){
+      return this.$store.getters.getActiveBlock;
     },
     slideData(){
       const slides = this.$store.getters['slides/getSlides'];
-      return slides[this.slideIndex];
-    }
+      const choiceSlides = slides[this.activeBlock][this.slideIndex];
+      this.maxSlideIndex = slides[this.activeBlock].length - 1;
+
+      return choiceSlides;
+    },
+    slideIndex(){
+      return this.$store.getters['slides/getSlideIndex'];
+    },
   }
 }
 </script>
@@ -57,6 +59,8 @@ body{
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+
+    margin: 0 auto;
   }
 
 }

@@ -2,11 +2,7 @@
   <header>
     <img src="@/assets/logo.png" alt="nike">
     <nav>
-      <router-link to="/men">MEN</router-link>
-      <router-link to="/women">WOMEN</router-link>
-      <router-link to="/kids">KIDS</router-link>
-      <router-link to="/accessories">ACCESSORIES</router-link>
-      <router-link to="/sales">SALES</router-link>
+      <a :class="((activeBlock == link) ? 'ative' : '')" @click="setActiveBlock(link)" v-for="link in linkArray">{{ link.toUpperCase() }}</a>
     </nav>
     <font-awesome-icon :icon="['fas', 'cart-shopping']" />
   </header>
@@ -15,6 +11,26 @@
 <script>
 export default {
   name: 'HeaderApp',
+  props:{
+    activeBlock: {
+      type: String,
+      required: true
+    }
+  },  
+  data(){
+    return{
+      linkArray: [
+        'man',
+        'women',
+        'kids',
+      ]
+    }
+  },
+  methods: {
+    setActiveBlock(activeBlock){
+      this.$store.commit('setActiveBlock', activeBlock);
+    }
+  }
 }
 </script>
 
@@ -41,6 +57,18 @@ header{
     a{
       color: #000;
       text-decoration: none;
+      cursor: pointer;
+      border-bottom: none;
+      transition: all .3s ease;
+
+      &.ative{
+        font-weight: bold;
+        border-bottom: 1px solid black;
+      }
+
+      &:hover{
+        border-bottom: 1px solid black;
+      }
     }
   }
 }
