@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import slides from './slides'
+import basket from './basket'
 
 Vue.use(Vuex)
 
@@ -23,6 +24,7 @@ export default new Vuex.Store({
   },
   actions: {},
   modules: {
-    slides
+    slides,
+    basket
   }
 })

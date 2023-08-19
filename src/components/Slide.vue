@@ -8,7 +8,7 @@
             <div class="slide-info__shoe-name">{{ slideData.name }}</div>
             <div class="slide-info__price">{{ slideData.price }}</div>
             <div class="slide-info__description">{{ slideData.description }}</div>
-            <div class="slide-info__add-cart"><font-awesome-icon :icon="['fas', 'cart-shopping']" /></div>
+            <div class="slide-info__add-cart" @click="addToBasket(slideData)"><font-awesome-icon :icon="['fas', 'cart-shopping']" /></div>
         </div>
     </div>
 </template>
@@ -26,6 +26,9 @@ export default{
         setAnimations(){
             document.querySelector('.slide').classList.remove('next');
         },
+        addToBasket(slideData){
+            this.$store.dispatch('basket/addItem', slideData);
+        }
     },
 }
 </script>
@@ -43,6 +46,7 @@ export default{
         align-items: center;
         opacity: 1;
         transition: all .3s ease;
+        z-index: 1;
 
         &.next{
             opacity: 0;

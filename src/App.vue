@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <header-app :activeBlock="activeBlock"/>
+    <header-app :activeBlock="activeBlock" :showingbasket="showingbasket"/>
     <paginator :slideIndex="slideIndex" :maxSlideIndex="maxSlideIndex"/>
     <slide :slideData="slideData"/>
+    <basket :basketItems="basketItems" :showingbasket="showingbasket"/>
   </div>
 </template>
 
@@ -10,12 +11,14 @@
 import HeaderApp from '@/components/HeaderApp';
 import paginator from '@/components/Paginator';
 import slide from '@/components/Slide';
+import basket from '@/components/Basket';
 
 export default {
   components:{
     'header-app' : HeaderApp,
     paginator,
-    slide
+    slide,
+    basket
   },
   data(){
     return{
@@ -36,6 +39,12 @@ export default {
     slideIndex(){
       return this.$store.getters['slides/getSlideIndex'];
     },
+    basketItems(){
+      return this.$store.getters['basket/getbasketItems'];
+    },
+    showingbasket(){
+      return this.$store.getters['basket/getShowingbasket'];
+    }
   }
 }
 </script>

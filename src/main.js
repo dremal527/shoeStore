@@ -7,9 +7,9 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import specific icons */
-import { faUserSecret, faArrowLeftLong, faArrowRightLong, faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret, faArrowLeftLong, faArrowRightLong, faCartShopping, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
 /* add icons to the library */
-library.add(faUserSecret, faArrowLeftLong, faArrowRightLong, faCartShopping)
+library.add(faUserSecret, faArrowLeftLong, faArrowRightLong, faCartShopping, faCircleXmark)
 /* add font awesome icon component */
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

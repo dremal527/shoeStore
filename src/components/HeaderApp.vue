@@ -4,7 +4,12 @@
     <nav>
       <a :class="((activeBlock == link) ? 'ative' : '')" @click="setActiveBlock(link)" v-for="link in linkArray">{{ link.toUpperCase() }}</a>
     </nav>
-    <font-awesome-icon :icon="['fas', 'cart-shopping']" />
+    <div class="header__basket-icon" @click="setShowingbasket">
+      <font-awesome-icon :icon="['fas', 'cart-shopping']" />
+      <div class="header__basket_count">
+        {{ basketCount }}
+      </div>
+    </div>
   </header>
 </template>
 
@@ -14,6 +19,10 @@ export default {
   props:{
     activeBlock: {
       type: String,
+      required: true
+    },
+    showingbasket: {
+      type: Boolean,
       required: true
     }
   },  
@@ -29,6 +38,14 @@ export default {
   methods: {
     setActiveBlock(activeBlock){
       this.$store.commit('setActiveBlock', activeBlock);
+    },
+    setShowingbasket(){
+      this.$store.commit('basket/setShowingbasket', !this.showingbasket);
+    }
+  },
+  computed: {
+    basketCount(){
+      return this.$store.getters['basket/getBasketCount'];
     }
   }
 }
@@ -69,6 +86,21 @@ header{
       &:hover{
         border-bottom: 1px solid black;
       }
+    }
+  }
+
+  .header__basket-icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg{
+      cursor: pointer;
+    }
+    .header__basket_count{
+      position: relative;
+      top: 10px;
+      right: -5px;
     }
   }
 }
